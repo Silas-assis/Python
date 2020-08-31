@@ -1,5 +1,5 @@
-import Python.Jogos.jogo_forca
-import Python.Jogos.jogo_adivinhacao
+import jogo_forca   
+import jogo_adivinhacao
 
 print("***********************************")
 print("*Qual jogo deseja você quer jogar?*")
@@ -11,5 +11,7 @@ jogo = int(input("Qual jogo?"))
 
 if(jogo == 1):
     print("Jogando Forca")
+    jogo_forca.jogar()
 elif(jogo == 2):
     print("Jogando Advinhação")
+    jogo_adivinhacao.jogar()
