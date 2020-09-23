@@ -13,5 +13,5 @@ if(jogo == 1):
     print("Jogando Forca")
     jogo_forca.jogar()
 elif(jogo == 2):
-    print("Jogando Advinhação")
+    print("Jogando Adivinhação")
     jogo_adivinhacao.jogar()
