@@ -1,4 +1,6 @@
-banana
-maça
 melancia
 laranja
+uva
+maca
+morango
+banana

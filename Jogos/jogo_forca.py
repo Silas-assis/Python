@@ -1,17 +1,11 @@
+import random
 
 def jogar():
-    print("*********************************")
-    print("***Bem Vindo ao Jogo de Forca***!")
-    print("*********************************")
+    imprime_mensagem_abertura()
 
-    palavra_secreta = "banana".upper()
-    
-    #for padrão para adicionar "_" para cada letra da palavra.
-    #letras_acertadas =[]
-    #for letra in palavra_secreta: 
-        #letras_acertadas.append("_")
-    
-    letras_acertadas = ["_" for letra in palavra_secreta] #for dentro da lista. List Comprehensions
+    palavra_secreta = carrega_palavra_secreta()
+
+    letras_acertadas = inicializa_letras_acertadas(palavra_secreta)
 
     enforcou = False
     acertou = False 
@@ -21,28 +15,146 @@ def jogar():
 
     while(not enforcou and not acertou):
 
-        chute = input("Qual letra? ")
-        chute = chute.strip().upper()
+        chute = pede_chute()
 
         if(chute in palavra_secreta):
-            index = 0
-            for letra in palavra_secreta:
-                if(chute == letra):
-                    letras_acertadas[index] = letra
-                index += 1
+            marca_chute_correto(chute, letras_acertadas, palavra_secreta)
         else:
             erros += 1
-        
-        enforcou = erros == 6
+            desenha_forca(erros)
+            
+        enforcou = erros == 7
         acertou = "_" not in letras_acertadas
         print(letras_acertadas)
 
     if(acertou):
-        print("Você Ganhou!")
+        imprime_menssagem_vencedor()
     else:
-        print("Você Perdeu!")
+        imprime_menssagem_perdedor(palavra_secreta)
 
     print("Fim de Jogo!")
+
+def imprime_mensagem_abertura():
+        print("*********************************")
+        print("***Bem Vindo ao Jogo de Forca***!")
+        print("*********************************")
+
+def carrega_palavra_secreta():
+    #Abrir arquivo txt no local do codigo.
+    arquivo = open("C:\\Users\\assissl\\Documents\\Workspace\\Python\\Jogos\\palavras.txt", "r")
+    palavras = []
+
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+
+    arquivo.close()
+
+    numero = random.randrange(0,len(palavras)) 
+    palavra_secreta = palavras[numero].upper()
+        
+    return palavra_secreta
+
+def inicializa_letras_acertadas(palavra):
+    return ["_" for letra in palavra] #for dentro da lista. List Comprehensions
+
+def pede_chute():
+    chute = input("Qual letra? ")
+    chute = chute.strip().upper()
+    return chute
+
+def marca_chute_correto(chute, letras_acertadas, palavra_secreta):
+    index = 0
+    for letra in palavra_secreta:
+        if(chute == letra):
+            letras_acertadas[index] = letra
+        index += 1
+
+def desenha_forca(erros):
+    print("  _______     ")
+    print(" |/      |    ")
+
+    if(erros == 1):
+        print(" |      (_)   ")
+        print(" |            ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 2):
+        print(" |      (_)   ")
+        print(" |      \     ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 3):
+        print(" |      (_)   ")
+        print(" |      \|    ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 4):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 5):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |            ")
+
+    if(erros == 6):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      /     ")
+
+    if (erros == 7):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      / \   ")
+
+    print(" |            ")
+    print("_|___         ")
+    print()
+
+
+def imprime_menssagem_vencedor():
+    print("Vitória. Você Venceu o Jogo da Forca!")
+    print("       ___________      ")
+    print("      '._==_==_=_.'     ")
+    print("      .-\\:      /-.    ")
+    print("     | (|:.     |) |    ")
+    print("      '-|:.     |-'     ")
+    print("        \\::.    /      ")
+    print("         '::. .'        ")
+    print("           ) (          ")
+    print("         _.' '._        ")
+    print("        '-------'       ")
+
+
+def imprime_menssagem_perdedor(palavra_secreta):
+    print("Derrota. Você foi enforcado!")
+    print("A palavra era {}".format(palavra_secreta))
+    print("    _______________         ")
+    print("   /               \       ")
+    print("  /                 \      ")
+    print("//                   \/\  ")
+    print("\|   XXXX     XXXX   | /   ")
+    print(" |   XXXX     XXXX   |/     ")
+    print(" |   XXX       XXX   |      ")
+    print(" |                   |      ")
+    print(" \__      XXX      __/     ")
+    print("   |\     XXX     /|       ")
+    print("   | |           | |        ")
+    print("   | I I I I I I I |        ")
+    print("   |  I I I I I I  |        ")
+    print("   \_             _/       ")
+    print("     \_         _/         ")
+    print("       \_______/           ")
+
 
 if(__name__ == "__main__"):
     jogar()
